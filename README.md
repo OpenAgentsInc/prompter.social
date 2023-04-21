@@ -38,3 +38,84 @@ PrompterSocial is a web app designed to allow users to submit, engage with, and 
 7. **Bitcoin Lightning Integration (Stubbed)**: Users can earn Bitcoin Lightning micropayments as rewards for popular prompts and active participation. Note that this functionality may be stubbed out during initial development, and only the frontend screens might be built.
 
 With these screens and components, PrompterSocial should provide users with an engaging experience that allows them to interact with AI-generated content and participate in a collaborative environment with the potential for earning micropayments as rewards. If any screens, components or functionality are missing, they can be added, iterated, or refined throughout the development process.
+
+## Proposed Application Structure
+
+Here's the extended file/folder hierarchy diagram including the necessary components and screens for the PrompterSocial app:
+
+```
+- prisma/
+  - schema.prisma
+- public/
+- src/
+  - components/
+    - CommentList/
+      - CommentItem.tsx
+      - CommentList.tsx
+    - PromptCard/
+      - PromptCard.tsx
+    - PromptForm/
+      - PromptForm.tsx
+    - ResponseList/
+      - ResponseItem.tsx
+      - ResponseList.tsx
+  - pages/
+    - api/
+      - auth/
+        - [...nextauth].ts
+      - trpc/
+        - [trpc].ts
+      - prompts/
+        - [id]/
+          - comments.ts
+          - index.ts
+          - upvote.ts
+      - user/
+        - leaderboard.ts
+      - index.ts
+    - prompts/
+      - [id]/
+        - index.tsx
+      - index.tsx
+      - new.tsx
+    - dashboard/
+      - index.tsx
+    - signin/
+      - index.tsx
+    - signup/
+      - index.tsx
+    - `_app.tsx`
+    - index.tsx
+  - server/
+    - api/
+      - routers/
+        - comments.ts
+        - prompts.ts
+        - users.ts
+      - root.ts
+      - trpc.ts
+    - auth.ts
+    - db.ts
+  - styles/
+    - globals.css
+  - utils/
+    - api.ts
+  - env.mjs
+- package.json
+- tailwind.config.ts
+- tsconfig.json
+```
+
+I've added several components and pages in this file structure to support our app's functionality:
+
+- `components`: This folder contains reusable components for various parts of the app, such as comments, prompts, and responses.
+
+- `pages/prompts`: This folder has the pages for browsing, creating, and viewing individual prompts.
+
+- `pages/dashboard`: This folder contains the user dashboard for visualizing progress, prompt popularity, and earnings.
+
+- `pages/signin` and `pages/signup`: These folders have the sign in and sign up pages for user authentication.
+
+- `server/api/routers`: The routers directory contains backend API routes for handling prompts, comments, and user-specific requests like leaderboard data.
+
+The extended file structure should provide a clear organization for each of the components, pages, and server-side functionality needed to build the PrompterSocial app during the hackathon.
