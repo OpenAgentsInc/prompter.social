@@ -1,10 +1,10 @@
 # prompter.social
 
-Collaborative AI conversations
+Collaborative AI conversation platform
 
 ## Idea
 
-Allow multiple people to have a multi-branch GPT4 conversation with built-in collaboration tools.
+Allow multiple people to have multi-branch AI conversations (with GPT4 and others) using built-in collaboration tools.
 
 ## Tech stack
 
