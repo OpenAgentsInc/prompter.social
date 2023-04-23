@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["liveblocks.io"],
+    domains: ["liveblocks.io", "placekitten.com"],
   },
   typescript: {
     ignoreBuildErrors: true,
