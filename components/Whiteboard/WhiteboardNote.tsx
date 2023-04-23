@@ -24,7 +24,10 @@ interface Props
   onFocus: FocusEventHandler<HTMLTextAreaElement>;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
   insertNote: (text?: string, x?: number, y?: number) => string | null;
-  handleNoteUpdate: (id: string, note: { text: string }) => void;
+  handleNoteUpdate: (
+    id: string,
+    note: { text?: string; from?: "user" | "assistant" | "system" }
+  ) => void;
 }
 
 export const WhiteboardNote = memo(
@@ -157,16 +160,18 @@ export const WhiteboardNote = memo(
         <div className={styles.note}>
           <div className={styles.header}>
             <Select
-              initialValue="user"
+              initialValue={note.from}
               items={[
                 { value: "user", title: "User" },
                 { value: "system", title: "System" },
                 { value: "assistant", title: "Assistant" },
               ]}
-              onChange={(value) => {
-                console.log(value);
+              onChange={(value: "user" | "system" | "assistant") => {
                 // Handle the value change, e.g., update the state or call a function
+                handleNoteUpdate(id, { from: value });
+                console.log("Updated note I think:", value);
               }}
+              value={note.from}
             />
 
             <div className={styles.iconButtons}>

@@ -1,7 +1,7 @@
-import { createClient, LiveMap, LiveObject } from "@liveblocks/client";
-import { createRoomContext } from "@liveblocks/react";
-import Router from "next/router";
-import { User } from "./types";
+import Router from 'next/router'
+import { createClient, LiveMap, LiveObject } from '@liveblocks/client'
+import { createRoomContext } from '@liveblocks/react'
+import { User } from './types'
 
 // The location of the liveblocks custom API endpoints
 export const ENDPOINT_BASE_URL = "/api/liveblocks";
@@ -57,6 +57,7 @@ export type Note = LiveObject<{
   text: string;
   selectedBy: UserMeta["info"] | null;
   id: string;
+  from: string;
 }>;
 
 export type Notes = LiveMap<string, Note>;

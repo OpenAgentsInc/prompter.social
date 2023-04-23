@@ -118,6 +118,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
 
     const note = storage.get("notes").get(noteId);
     if (note) {
+      console.log("Updating with updates:", updates);
       note.update(updates);
     }
   }, []);
