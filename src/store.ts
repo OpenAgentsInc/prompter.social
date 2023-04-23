@@ -12,7 +12,9 @@ export type Shape = {
 
 type State = {
   shapes: Record<string, Shape>;
+  selectedShape: string | null;
   insertRectangle: () => void;
+  onShapePointerDown: (shapeId: string | null) => void;
 };
 
 const client = createClient({
@@ -34,24 +36,30 @@ const useStore = create<WithLiveblocks<State>>()(
   liveblocks(
     (set, get) => ({
       shapes: {},
+      selectedShape: null,
       insertRectangle: () => {
         const { shapes } = get();
 
         const shapeId = Date.now().toString();
         const shape = {
-          x: getRandomInt(600),
+          x: getRandomInt(300),
           y: getRandomInt(300),
           fill: getRandomColor(),
         };
 
         set({
           shapes: { ...shapes, [shapeId]: shape },
+          selectedShape: shapeId,
         });
+      },
+      onShapePointerDown: (shapeId) => {
+        set({ selectedShape: shapeId });
       },
     }),
     {
       client,
       storageMapping: { shapes: true },
+      presenceMapping: { selectedShape: true },
     }
   )
 );
