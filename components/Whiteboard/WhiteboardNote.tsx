@@ -1,19 +1,13 @@
-import clsx from "clsx";
+import clsx from 'clsx'
 import {
-  ChangeEventHandler,
-  ComponentProps,
-  FocusEventHandler,
-  KeyboardEvent,
-  PointerEventHandler,
-  memo,
-  useCallback,
-  useRef,
-} from "react";
-import { CrossIcon } from "../../icons";
-import { useStorage } from "../../liveblocks.config";
-import { Avatar } from "../../primitives/Avatar";
-import { Button } from "../../primitives/Button";
-import styles from "./WhiteboardNote.module.css";
+    ChangeEventHandler, ComponentProps, FocusEventHandler, KeyboardEvent, memo,
+    PointerEventHandler, useCallback, useRef
+} from 'react'
+import { CrossIcon } from '../../icons'
+import { useStorage } from '../../liveblocks.config'
+import { Avatar } from '../../primitives/Avatar'
+import { Button } from '../../primitives/Button'
+import styles from './WhiteboardNote.module.css'
 
 interface Props
   extends Omit<
@@ -53,6 +47,14 @@ export const WhiteboardNote = memo(
       (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === "Escape") {
           textAreaRef.current?.blur();
+        }
+
+        if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+          event.preventDefault(); // Prevent creating a new line in the textarea
+
+          // Call your API function here with text as parameter, e.g., sendToOpenAIChatAPI(text);
+          // You can use the 'chatInput' state variable as the text to be sent
+          console.log("Submitting...");
         }
       },
       []
