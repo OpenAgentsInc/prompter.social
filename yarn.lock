@@ -97,6 +97,26 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@liveblocks/client@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@liveblocks/client/-/client-1.0.2.tgz#83bda729c5de77baed13007701ce5425ae704ed6"
+  integrity sha512-sTXIe7nzEKOwPjSvX9T0qKfnz6iLqcEYHHWrdQqtFjkYsQ/fnM6dEXNYfafQInoBMBiKFpdDNoulYwKMJ8ybtQ==
+  dependencies:
+    "@liveblocks/core" "1.0.2"
+
+"@liveblocks/core@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@liveblocks/core/-/core-1.0.2.tgz#27e7aa094782040331c34147b373460222c52130"
+  integrity sha512-xZlklLGSulQ5ub0ppPu6NM7Sq9XK7EydEWP4UNosG7OqNaHwjZ8oGhjbDxYZqPzh8sPJYM5Tp9B85JbWsk687Q==
+
+"@liveblocks/zustand@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@liveblocks/zustand/-/zustand-1.0.2.tgz#0a3cb223755c39dc172390fc64a5e4577d9ada9f"
+  integrity sha512-V64ayoamqMx41KIj+cHP545v7h8O8jxsvN8A4BBY8IFvDxv+qNl5PG7yi8UWbNlN5sZt8OUmFlniwMfsYf31Kg==
+  dependencies:
+    "@liveblocks/client" "1.0.2"
+    "@liveblocks/core" "1.0.2"
+
 "@next-auth/prisma-adapter@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@next-auth/prisma-adapter/-/prisma-adapter-1.0.6.tgz#da0a423c9cfaaa4d22421817546b62d964ae8f4e"
@@ -2604,7 +2624,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-sync-external-store@^1.2.0:
+use-sync-external-store@1.2.0, use-sync-external-store@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
@@ -2688,3 +2708,10 @@ zod@^3.21.4:
   version "3.21.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.21.4.tgz#10882231d992519f0a10b5dd58a38c9dabbb64db"
   integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
+
+zustand@4.3.7:
+  version "4.3.7"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.3.7.tgz#501b1f0393a7f1d103332e45ab574be5747fedce"
+  integrity sha512-dY8ERwB9Nd21ellgkBZFhudER8KVlelZm8388B5nDAXhO/+FZDhYMuRnqDgu5SYyRgz/iaf8RKnbUs/cHfOGlQ==
+  dependencies:
+    use-sync-external-store "1.2.0"
