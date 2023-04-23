@@ -1,10 +1,10 @@
-import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
-import { AppProps } from "next/app";
-import Head from "next/head";
-import { Badge } from "../components/Badge";
-import "../styles/globals.css";
+import '../styles/globals.css'
+import { Session } from 'next-auth'
+import { SessionProvider } from 'next-auth/react'
+import { AppProps } from 'next/app'
+import Head from 'next/head'
+import { TooltipProvider } from '@radix-ui/react-tooltip'
+import { Badge } from '../components/Badge'
 
 export default function App({
   Component,
@@ -13,7 +13,7 @@ export default function App({
   return (
     <>
       <Head>
-        <title>Starter Kit</title>
+        <title>PrompterSocial</title>
         <link href="/favicon.svg" rel="icon" type="image/svg" />
       </Head>
       <TooltipProvider>

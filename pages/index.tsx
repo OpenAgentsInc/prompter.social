@@ -1,14 +1,14 @@
-import clsx from "clsx";
-import { GetServerSideProps } from "next";
-import { ComponentProps, ReactNode } from "react";
-import { DASHBOARD_URL } from "../constants";
-import { SignInIcon } from "../icons";
-import { MarketingLayout } from "../layouts/Marketing";
-import { signIn } from "next-auth/react";
-import * as Server from "../lib/server";
-import { Button, LinkButton } from "../primitives/Button";
-import { Container } from "../primitives/Container";
-import styles from "./index.module.css";
+import clsx from 'clsx'
+import { GetServerSideProps } from 'next'
+import { signIn } from 'next-auth/react'
+import { ComponentProps, ReactNode } from 'react'
+import { DASHBOARD_URL } from '../constants'
+import { SignInIcon } from '../icons'
+import { MarketingLayout } from '../layouts/Marketing'
+import * as Server from '../lib/server'
+import { Button, LinkButton } from '../primitives/Button'
+import { Container } from '../primitives/Container'
+import styles from './index.module.css'
 
 interface FeatureProps extends Omit<ComponentProps<"div">, "title"> {
   description: ReactNode;
@@ -29,28 +29,23 @@ export default function Index() {
     <MarketingLayout>
       <Container className={styles.section}>
         <div className={styles.heroInfo}>
-          <h1 className={styles.heroTitle}>
-            Kickstart your collaborative&nbsp;app
-          </h1>
-          <p className={styles.heroLead}>
-            Use the Liveblocks Starter Kit to build your document-based
-            collaborative app in&nbsp;minutes.
-          </p>
+          <h1 className={styles.heroTitle}>Collaborative GPT-4 Chat</h1>
+          <p className={styles.heroLead}>Chat together, learn together.</p>
         </div>
         <div className={styles.heroActions}>
           <Button icon={<SignInIcon />} onClick={() => signIn()}>
             Sign in
           </Button>
-          <LinkButton
+          {/* <LinkButton
             href="https://liveblocks.io/docs/guides/nextjs-starter-kit"
             target="_blank"
             variant="secondary"
           >
             Learn more
-          </LinkButton>
+          </LinkButton> */}
         </div>
       </Container>
-      <Container className={styles.section}>
+      {/* <Container className={styles.section}>
         <h2 className={styles.sectionTitle}>Features</h2>
         <div className={styles.featuresGrid}>
           <Feature
@@ -107,7 +102,7 @@ export default function Index() {
             title="SWR"
           />
         </div>
-      </Container>
+      </Container> */}
     </MarketingLayout>
   );
 }
