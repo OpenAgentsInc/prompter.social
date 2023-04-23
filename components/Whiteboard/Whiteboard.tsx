@@ -71,21 +71,25 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
   } | null>();
 
   // Insert a new note onto the canvas
-  const insertNote = useMutation(({ storage, self }, text = "") => {
-    if (self.isReadOnly) {
-      return;
-    }
+  const insertNote = useMutation(
+    ({ storage, self }, text = ""): string | null => {
+      if (self.isReadOnly) {
+        return null;
+      }
 
-    const noteId = nanoid();
-    const note = new LiveObject({
-      x: getRandomInt(300),
-      y: getRandomInt(300),
-      text,
-      selectedBy: null,
-      id: noteId,
-    });
-    storage.get("notes").set(noteId, note);
-  }, []);
+      const noteId = nanoid();
+      const note = new LiveObject({
+        x: getRandomInt(300),
+        y: getRandomInt(300),
+        text,
+        selectedBy: null,
+        id: noteId,
+      });
+      storage.get("notes").set(noteId, note);
+      return noteId;
+    },
+    []
+  );
 
   // Delete a note
   const handleNoteDelete = useMutation(({ storage, self }, noteId) => {
@@ -199,6 +203,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
             onFocus={(e) => handleNoteFocus(e, id)}
             onPointerDown={(e) => handleNotePointerDown(e, id)}
             insertNote={insertNote}
+            handleNoteUpdate={handleNoteUpdate}
           />
         ))
       }

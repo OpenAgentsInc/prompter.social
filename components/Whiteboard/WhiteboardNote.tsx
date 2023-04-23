@@ -22,7 +22,8 @@ interface Props
   onDelete: () => void;
   onFocus: FocusEventHandler<HTMLTextAreaElement>;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
-  insertNote: (text?: string) => void; // Need to be able to create notes from here - ugly but eh.
+  insertNote: (text?: string) => string | null; // Need to be able to create notes from here - ugly but eh.
+  handleNoteUpdate: (id: string, note: { text: string }) => void;
 }
 
 export const WhiteboardNote = memo(
@@ -37,6 +38,7 @@ export const WhiteboardNote = memo(
     onBlur,
     style,
     className,
+    handleNoteUpdate,
     ...props
   }: Props) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -55,7 +57,8 @@ export const WhiteboardNote = memo(
         if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
           event.preventDefault(); // Prevent creating a new line in the textarea
           const text = textAreaRef.current?.value;
-          console.log("Submitting...", text);
+
+          const newNoteId = insertNote("Sending...");
 
           const submitChat = async () => {
             const messageData = {
@@ -96,9 +99,13 @@ export const WhiteboardNote = memo(
                 done = doneReading;
                 const chunkValue = decoder.decode(value);
                 text += chunkValue;
-                console.log(text);
+                // console.log(text);
+                // +     // Update the text of the new note while streaming
+                if (newNoteId) {
+                  handleNoteUpdate(newNoteId, { text });
+                }
               }
-              insertNote(text);
+              // insertNote(text);
             } else {
               console.error("Error submitting chat:", response.statusText);
             }
