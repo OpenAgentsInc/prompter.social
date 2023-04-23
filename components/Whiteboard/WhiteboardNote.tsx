@@ -188,7 +188,7 @@ export const WhiteboardNote = memo(
               initialValue={note.from}
               items={[
                 { value: "user", title: "User" },
-                { value: "system", title: "System" },
+                // { value: "system", title: "System" },
                 { value: "assistant", title: "Assistant" },
               ]}
               onChange={(value: "user" | "system" | "assistant") => {
