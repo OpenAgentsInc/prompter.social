@@ -87,7 +87,6 @@ export const WhiteboardNote = memo(
           const text = textAreaRef.current?.value;
 
           const aboveNotes = getNotesAbove(note, notesMap);
-          console.log("aboveNotes", aboveNotes);
 
           // Calculate the new note position (a bit below and to the right of the submitted note)
           const xOffset = 0;
@@ -120,7 +119,7 @@ export const WhiteboardNote = memo(
               temperature: 0.7,
             };
 
-            console.log("messageData", messageData);
+            // console.log("messageData", messageData);
 
             const response = await fetch("/api/chat", {
               method: "POST",

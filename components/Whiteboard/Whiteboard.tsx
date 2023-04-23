@@ -74,18 +74,14 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
 
     noteIds.forEach((id) => {
       const currentNote = notesMap.get(id);
-      console.log("currentNote", currentNote);
       // const currentNote = useStorage((root) => root.notes.get(id));
       if (!currentNote) return;
-      console.log("currentNote.y", currentNote.y, "targetNote.y", targetNote.y);
-      console.log(Math.abs(currentNote.x - targetNote.x));
 
       // Check if x is less than note.x and y is within the range
       if (
         currentNote.y < targetNote.y &&
         Math.abs(currentNote.x - targetNote.x) <= xThreshold
       ) {
-        console.log("yes pushing this");
         notesArray.push({
           from: currentNote.from as "user" | "assistant" | "system",
           content: currentNote.text,
