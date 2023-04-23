@@ -16,9 +16,9 @@ const Home: NextPage = () => {
   const onCanvasPointerUp = useStore((state) => state.onCanvasPointerUp);
 
   useEffect(() => {
-    enterRoom("zustand-whiteboard");
+    enterRoom("room");
     return () => {
-      leaveRoom("zustand-whiteboard");
+      leaveRoom("room");
     };
   }, [enterRoom, leaveRoom]);
 
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <meta name="description" content="AGI house hackathon entry" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="flex min-h-screen flex-col items-center justify-center">
         <div className="flex flex-col items-center gap-2">
           {!isLoading && (
             <>
