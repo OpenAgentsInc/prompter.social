@@ -45,64 +45,41 @@ export default function Index() {
           </LinkButton> */}
         </div>
       </Container>
-      {/* <Container className={styles.section}>
+      <Container className={styles.section}>
         <h2 className={styles.sectionTitle}>Features</h2>
         <div className={styles.featuresGrid}>
           <Feature
             description={
               <>
-                A collaborative whiteboard app with included share menu,
-                documents listing, users, groups, permissions, and more.
+                Collaborate in real-time with other users using our integrated
+                chat feature, allowing simultaneous interactions with AI agents
+                and group members.
               </>
             }
-            title="Liveblocks"
+            title="Collaborative Chat"
           />
           <Feature
             description={
               <>
-                Best practices followed, using a mixture of SSR and custom API
-                endpoints. Modify documents from both client and server.
+                Experience multi-branch dialogues that enable users to create,
+                explore, and share various conversation paths with AI and other
+                participants.
               </>
             }
-            title="Next.js"
+            title="Multi-Branch Conversations"
           />
           <Feature
             description={
               <>
-                Adjust our reusable interface & design system to fit your needs.
+                Access a variety of powerful plugins designed to enhance AI
+                collaboration, enabling users to customize their experience and
+                unlock new possibilities.
               </>
             }
-            title="User Interface"
-          />
-          <Feature
-            description={
-              <>
-                All custom client and server functions are fully typed, and easy
-                to update.
-              </>
-            }
-            title="TypeScript"
-          />
-          <Feature
-            description={
-              <>
-                Complete authentication, compatible with any NextAuth provider,
-                including GitHub, Google, Auth0, and many more.
-              </>
-            }
-            title="NextAuth.js"
-          />
-          <Feature
-            description={
-              <>
-                See data update live using the SWR (state-while-revalidate)
-                library.
-              </>
-            }
-            title="SWR"
+            title="Plugins"
           />
         </div>
-      </Container> */}
+      </Container>
     </MarketingLayout>
   );
 }
