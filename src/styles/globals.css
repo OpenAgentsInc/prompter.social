@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #eeeeee;
+  background-color: #202023;
 }
 
 .loading {
@@ -15,7 +15,7 @@ body {
 }
 
 .canvas {
-  background-color: #eeeeee;
+  background-color: #202023;
   touch-action: none;
   width: 100vw;
   height: 100vh;
@@ -41,7 +41,7 @@ body {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
     0px 0px 0px 1px rgba(0, 0, 0, 0.05);
   display: flex;
-  background-color: #ffffff;
+  background-color: #121215;
   user-select: none;
   z-index: 9999;
 }
@@ -52,8 +52,8 @@ body {
   justify-content: center;
   padding: 4px 8px;
   border-radius: 4px;
-  background-color: #f8f8f8;
-  color: #181818;
+  background-color: #121215;
+  color: #a1a1aa;
   border: none;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
     0px 0px 0px 1px rgba(0, 0, 0, 0.05);
@@ -64,9 +64,9 @@ body {
 
 .toolbar button:hover,
 .toolbar button:focus {
-  background-color: #ffffff;
+  background-color: #222;
 }
 
 .toolbar button:active {
-  background-color: #eeeeee;
+  background-color: #333;
 }
