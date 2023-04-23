@@ -6,6 +6,7 @@ import useStore, { Shape } from '@/store'
 
 const Home: NextPage = () => {
   const shapes = useStore((state) => state.shapes);
+  const insertRectangle = useStore((state) => state.insertRectangle);
   const enterRoom = useStore((state) => state.liveblocks.enterRoom);
   const leaveRoom = useStore((state) => state.liveblocks.leaveRoom);
   const isLoading = useStore((state) => state.liveblocks.isStorageLoading);
@@ -26,22 +27,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            Prompter<span className="text-[hsl(280,100%,70%)]">Social</span>
-          </h1>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {isLoading ? "Loading" : "Let us test Liveblocks"}
-            </p>
-            {!isLoading && (
+        <div className="flex flex-col items-center gap-2">
+          {!isLoading && (
+            <>
+              <div className="toolbar">
+                <button onClick={insertRectangle}>Rectangle</button>
+              </div>
               <div className="canvas">
                 {Object.entries(shapes).map(([shapeId, shape]) => {
                   return <Rectangle key={shapeId} shape={shape} />;
                 })}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </main>
     </>
