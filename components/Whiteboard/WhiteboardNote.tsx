@@ -79,6 +79,16 @@ export const WhiteboardNote = memo(
 
             if (response.ok) {
               console.log("Chat submitted successfully");
+              const data = response.body;
+              if (!data) {
+                console.log("No data...!");
+                return;
+              }
+              const reader = data.getReader();
+              const decoder = new TextDecoder();
+              let done = false;
+              let isFirst = true;
+              let text = "";
               // const data = await response.body()
               // const data = await response.json();
               // console.log(data);
