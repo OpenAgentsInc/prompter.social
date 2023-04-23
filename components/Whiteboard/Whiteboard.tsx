@@ -90,6 +90,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
       const note = new LiveObject({
         x: x ?? getRandomInt(300),
         y: y ?? getRandomInt(300),
+        collapsed: false,
         text,
         selectedBy: null,
         id: noteId,

@@ -4,7 +4,7 @@ import {
     PointerEventHandler, useCallback, useRef, useState
 } from 'react'
 import { OpenAIModels } from '@/types/openai'
-import { CrossIcon } from '../../icons'
+import { CrossIcon, PlusIcon, SelectIcon } from '../../icons'
 import { useStorage } from '../../liveblocks.config'
 import { Avatar } from '../../primitives/Avatar'
 import { Button } from '../../primitives/Button'
@@ -43,7 +43,7 @@ export const WhiteboardNote = memo(
   }: Props) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const note = useStorage((root) => root.notes.get(id));
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
 
     function toggleCollapsed() {
       setCollapsed((prevCollapsed) => !prevCollapsed);
@@ -157,14 +157,14 @@ export const WhiteboardNote = memo(
           <div className={styles.header}>
             <div className={styles.headerButtons}>
               <Button
-                className={styles.collapseButton}
+                className={styles.deleteButton}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleCollapsed();
                 }}
-              >
-                {collapsed ? "Expand" : "Collapse"}
-              </Button>
+                icon={<SelectIcon />}
+                variant={collapsed ? "subtle" : "primary"}
+              />
               <Button
                 className={styles.deleteButton}
                 icon={<CrossIcon />}
