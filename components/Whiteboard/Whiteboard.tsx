@@ -153,28 +153,32 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
     history.resume();
   }
 
-  function expandCanvas() {
-    const { x, y } = dragInfo.current.offset;
-    const coords = {
-      x: e.clientX - rectRef.current.x - x,
-      y: e.clientY - rectRef.current.y - y,
-    };
-    const padding = 200;
-    const newWidth =
-      coords.x + padding > canvasDimensions.width
-        ? canvasDimensions.width + 10000
-        : canvasDimensions.width;
-    const newHeight =
-      coords.y + padding > canvasDimensions.height
-        ? canvasDimensions.height + 10000
-        : canvasDimensions.height;
-
-    setCanvasDimensions({ width: newWidth, height: newHeight });
-  }
-
   // If dragging on canvas pointer move, move element and adjust for offset
   function handleCanvasPointerMove(e: PointerEvent<HTMLDivElement>) {
     e.preventDefault();
+
+    function expandCanvas() {
+      const offset = dragInfo?.current?.offset;
+      if (!offset) {
+        return;
+      }
+      const { x, y } = offset;
+      const coords = {
+        x: e.clientX - rectRef.current.x - x,
+        y: e.clientY - rectRef.current.y - y,
+      };
+      const padding = 200;
+      const newWidth =
+        coords.x + padding > canvasDimensions.width
+          ? canvasDimensions.width + 10000
+          : canvasDimensions.width;
+      const newHeight =
+        coords.y + padding > canvasDimensions.height
+          ? canvasDimensions.height + 10000
+          : canvasDimensions.height;
+
+      setCanvasDimensions({ width: newWidth, height: newHeight });
+    }
 
     if (isDragging && dragInfo.current) {
       expandCanvas();
