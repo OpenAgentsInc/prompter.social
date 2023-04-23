@@ -1,33 +1,23 @@
-import clsx from "clsx";
-import { LiveObject, shallow } from "@liveblocks/client";
-import { ClientSideSuspense } from "@liveblocks/react";
-import { nanoid } from "nanoid";
+import clsx from 'clsx'
+import { nanoid } from 'nanoid'
+import { useSession } from 'next-auth/react'
 import {
-  ChangeEvent,
-  ComponentProps,
-  FocusEvent,
-  PointerEvent,
-  useRef,
-  useState,
-} from "react";
-import { PlusIcon, RedoIcon, UndoIcon } from "../../icons";
-import { useSession } from "next-auth/react";
+    ChangeEvent, ComponentProps, FocusEvent, PointerEvent, useRef, useState
+} from 'react'
+import { LiveObject, shallow } from '@liveblocks/client'
+import { ClientSideSuspense } from '@liveblocks/react'
+import { PlusIcon, RedoIcon, UndoIcon } from '../../icons'
 import {
-  UserMeta,
-  useCanRedo,
-  useCanUndo,
-  useHistory,
-  useMutation,
-  useSelf,
-  useStorage,
-} from "../../liveblocks.config";
-import { Button } from "../../primitives/Button";
-import { Spinner } from "../../primitives/Spinner";
-import { Tooltip } from "../../primitives/Tooltip";
-import { useBoundingClientRectRef } from "../../utils";
-import { Cursors } from "../Cursors";
-import { WhiteboardNote } from "./WhiteboardNote";
-import styles from "./Whiteboard.module.css";
+    useCanRedo, useCanUndo, useHistory, useMutation, UserMeta, useSelf,
+    useStorage
+} from '../../liveblocks.config'
+import { Button } from '../../primitives/Button'
+import { Spinner } from '../../primitives/Spinner'
+import { Tooltip } from '../../primitives/Tooltip'
+import { useBoundingClientRectRef } from '../../utils'
+import { Cursors } from '../Cursors'
+import styles from './Whiteboard.module.css'
+import { WhiteboardNote } from './WhiteboardNote'
 
 interface Props extends ComponentProps<"div"> {
   currentUser: UserMeta["info"] | null;
@@ -81,7 +71,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
   } | null>();
 
   // Insert a new note onto the canvas
-  const insertNote = useMutation(({ storage, self }) => {
+  const insertNote = useMutation(({ storage, self }, text = "") => {
     if (self.isReadOnly) {
       return;
     }
@@ -90,7 +80,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
     const note = new LiveObject({
       x: getRandomInt(300),
       y: getRandomInt(300),
-      text: "",
+      text,
       selectedBy: null,
       id: noteId,
     });
@@ -208,6 +198,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
             onDelete={() => handleNoteDelete(id)}
             onFocus={(e) => handleNoteFocus(e, id)}
             onPointerDown={(e) => handleNotePointerDown(e, id)}
+            insertNote={insertNote}
           />
         ))
       }

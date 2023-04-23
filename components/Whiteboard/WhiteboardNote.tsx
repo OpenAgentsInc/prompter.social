@@ -22,11 +22,13 @@ interface Props
   onDelete: () => void;
   onFocus: FocusEventHandler<HTMLTextAreaElement>;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
+  insertNote: (text?: string) => void; // Need to be able to create notes from here - ugly but eh.
 }
 
 export const WhiteboardNote = memo(
   ({
     id,
+    insertNote,
     dragged,
     onPointerDown,
     onDelete,
@@ -96,6 +98,7 @@ export const WhiteboardNote = memo(
                 text += chunkValue;
                 console.log(text);
               }
+              insertNote(text);
             } else {
               console.error("Error submitting chat:", response.statusText);
             }
