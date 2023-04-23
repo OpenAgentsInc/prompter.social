@@ -249,9 +249,11 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
     history.resume();
   }
 
+  // const notesMap: any[] = [];
   const notesMap: Map<string, typeof LiveObject> = useStorage(
     (root) => root.notes
   );
+  // console.log(notesMap);
 
   return (
     <div
