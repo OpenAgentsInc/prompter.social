@@ -16,9 +16,9 @@ const Home: NextPage = () => {
   const onCanvasPointerUp = useStore((state) => state.onCanvasPointerUp);
 
   useEffect(() => {
-    enterRoom("room-no");
+    enterRoom("room-01");
     return () => {
-      leaveRoom("room-no");
+      leaveRoom("room-01");
     };
   }, [enterRoom, leaveRoom]);
 

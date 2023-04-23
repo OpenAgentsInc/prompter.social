@@ -23,7 +23,8 @@ type State = {
 
 const client = createClient({
   publicApiKey:
-    "pk_dev_xUe96dIH8CRXkqFjYjnaRHIJoOwRWBpKSQx7_OlrhPEo7r1LWzn8B0wESMMwOCpF",
+    "pk_prod_4ErQysAkZg1bei0XRYYPZEkpG0cv3pVgfK2gBQjUObcagpOeNEDTYBU2IYHbMj7z",
+  // "pk_dev_xUe96dIH8CRXkqFjYjnaRHIJoOwRWBpKSQx7_OlrhPEo7r1LWzn8B0wESMMwOCpF",
 });
 
 const COLORS = ["#DC2626", "#D97706", "#059669", "#7C3AED", "#DB2777"];
