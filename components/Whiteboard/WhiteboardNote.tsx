@@ -22,7 +22,7 @@ interface Props
   onDelete: () => void;
   onFocus: FocusEventHandler<HTMLTextAreaElement>;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
-  insertNote: (text?: string, x?: number, y?: number) => string | null; // Need to be able to create notes from here - ugly but eh.
+  insertNote: (text?: string, x?: number, y?: number) => string | null;
   handleNoteUpdate: (id: string, note: { text: string }) => void;
 }
 
@@ -50,6 +50,10 @@ export const WhiteboardNote = memo(
 
     const handleKeyDown = useCallback(
       (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (!note) {
+          return null;
+        }
+
         if (event.key === "Escape") {
           textAreaRef.current?.blur();
         }
@@ -81,7 +85,6 @@ export const WhiteboardNote = memo(
                 },
               ],
               key: "your_key",
-              // prompt: "hello test",
               temperature: 0.7,
             };
 
@@ -94,7 +97,6 @@ export const WhiteboardNote = memo(
             });
 
             if (response.ok) {
-              console.log("Chat submitted successfully");
               const data = response.body;
               if (!data) {
                 console.log("No data...!");
@@ -110,13 +112,10 @@ export const WhiteboardNote = memo(
                 done = doneReading;
                 const chunkValue = decoder.decode(value);
                 text += chunkValue;
-                // console.log(text);
-                // +     // Update the text of the new note while streaming
                 if (newNoteId) {
                   handleNoteUpdate(newNoteId, { text });
                 }
               }
-              // insertNote(text);
             } else {
               console.error("Error submitting chat:", response.statusText);
             }
