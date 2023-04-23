@@ -7,11 +7,13 @@
 
 .toolbarContainer {
   position: fixed;
+  pointer-events: none;
   width: 100vw;
   height: 93vh;
 }
 
 .toolbar {
+  pointer-events: all;
   position: absolute;
   z-index: var(--z-above);
   top: var(--space-10);
