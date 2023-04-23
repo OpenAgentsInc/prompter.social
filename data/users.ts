@@ -20,13 +20,13 @@ export const users: Omit<User, "color">[] = [
   {
     id: "chris@arcadelabs.co",
     name: "Christopher David",
-    avatar: "https://placekitten.com/200/300",
+    avatar: "https://liveblocks.io/avatars/avatar-3.png",
     groupIds: ["product", "engineering", "design"],
   },
   {
     id: "stanley.walkerv@gmail.com",
     name: "Stanley",
-    avatar: "https://placekitten.com/201/301",
+    avatar: "https://liveblocks.io/avatars/avatar-0.png",
     groupIds: ["product", "engineering", "design"],
   },
   {
