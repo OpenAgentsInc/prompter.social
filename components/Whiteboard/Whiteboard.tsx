@@ -72,15 +72,15 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
 
   // Insert a new note onto the canvas
   const insertNote = useMutation(
-    ({ storage, self }, text = ""): string | null => {
+    ({ storage, self }, text = "", x?: number, y?: number): string | null => {
       if (self.isReadOnly) {
         return null;
       }
 
       const noteId = nanoid();
       const note = new LiveObject({
-        x: getRandomInt(300),
-        y: getRandomInt(300),
+        x: x ?? getRandomInt(300),
+        y: y ?? getRandomInt(300),
         text,
         selectedBy: null,
         id: noteId,

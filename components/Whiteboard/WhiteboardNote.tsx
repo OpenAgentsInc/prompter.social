@@ -22,7 +22,7 @@ interface Props
   onDelete: () => void;
   onFocus: FocusEventHandler<HTMLTextAreaElement>;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
-  insertNote: (text?: string) => string | null; // Need to be able to create notes from here - ugly but eh.
+  insertNote: (text?: string, x?: number, y?: number) => string | null; // Need to be able to create notes from here - ugly but eh.
   handleNoteUpdate: (id: string, note: { text: string }) => void;
 }
 
@@ -58,7 +58,18 @@ export const WhiteboardNote = memo(
           event.preventDefault(); // Prevent creating a new line in the textarea
           const text = textAreaRef.current?.value;
 
-          const newNoteId = insertNote("Sending...");
+          // Calculate the new note position (a bit below and to the right of the submitted note)
+          const xOffset = 40;
+          const yOffset = 20;
+          const noteElement =
+            textAreaRef.current?.parentElement?.parentElement?.parentElement;
+          const noteHeight = noteElement?.clientHeight ?? 0;
+          const currentX = note.x;
+          const currentY = note.y;
+          const newX = currentX + xOffset;
+          const newY = currentY + noteHeight + yOffset;
+
+          const newNoteId = insertNote("Sending...", newX, newY);
 
           const submitChat = async () => {
             const messageData = {
@@ -114,7 +125,7 @@ export const WhiteboardNote = memo(
           submitChat();
         }
       },
-      []
+      [note]
     );
 
     if (!note) {
