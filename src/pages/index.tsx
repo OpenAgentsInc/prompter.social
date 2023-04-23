@@ -2,12 +2,13 @@ import { NextPage } from 'next'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useEffect } from 'react'
-import useStore from '@/store'
-import { api } from '@/utils/api'
+import useStore, { Shape } from '@/store'
 
 const Home: NextPage = () => {
+  const shapes = useStore((state) => state.shapes);
   const enterRoom = useStore((state) => state.liveblocks.enterRoom);
   const leaveRoom = useStore((state) => state.liveblocks.leaveRoom);
+  const isLoading = useStore((state) => state.liveblocks.isStorageLoading);
 
   useEffect(() => {
     enterRoom("zustand-whiteboard");
@@ -30,7 +31,16 @@ const Home: NextPage = () => {
             Prompter<span className="text-[hsl(280,100%,70%)]">Social</span>
           </h1>
           <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">Let us test Liveblocks</p>
+            <p className="text-2xl text-white">
+              {isLoading ? "Loading" : "Let us test Liveblocks"}
+            </p>
+            {!isLoading && (
+              <div className="canvas">
+                {Object.entries(shapes).map(([shapeId, shape]) => {
+                  return <Rectangle key={shapeId} shape={shape} />;
+                })}
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -40,26 +50,14 @@ const Home: NextPage = () => {
 
 export default Home;
 
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
+const Rectangle = ({ shape }: { shape: Shape }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
+    <div
+      className="rectangle"
+      style={{
+        transform: `translate(${shape.x}px, ${shape.y}px)`,
+        backgroundColor: shape.fill ? shape.fill : "#CCC",
+      }}
+    ></div>
   );
 };
