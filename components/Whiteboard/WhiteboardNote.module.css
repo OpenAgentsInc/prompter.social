@@ -62,3 +62,19 @@
 .textArea::placeholder {
   color: var(--color-text-lightest);
 }
+
+.collapsed {
+  max-height: 150px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerButtons {
+  display: flex;
+  gap: var(--space-4);
+}

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import {
     ChangeEventHandler, ComponentProps, FocusEventHandler, KeyboardEvent, memo,
-    PointerEventHandler, useCallback, useRef
+    PointerEventHandler, useCallback, useRef, useState
 } from 'react'
 import { OpenAIModels } from '@/types/openai'
 import { CrossIcon } from '../../icons'
@@ -43,6 +43,11 @@ export const WhiteboardNote = memo(
   }: Props) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const note = useStorage((root) => root.notes.get(id));
+    const [collapsed, setCollapsed] = useState(true);
+
+    function toggleCollapsed() {
+      setCollapsed((prevCollapsed) => !prevCollapsed);
+    }
 
     const handleDoubleClick = useCallback(() => {
       textAreaRef.current?.focus();
@@ -150,12 +155,26 @@ export const WhiteboardNote = memo(
       >
         <div className={styles.note}>
           <div className={styles.header}>
-            <Button
-              className={styles.deleteButton}
-              icon={<CrossIcon />}
-              onClick={onDelete}
-              variant="subtle"
-            />
+            <div className={styles.headerButtons}>
+              <Button
+                className={styles.collapseButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleCollapsed();
+                }}
+              >
+                {collapsed ? "Expand" : "Collapse"}
+              </Button>
+              <Button
+                className={styles.deleteButton}
+                icon={<CrossIcon />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete();
+                }}
+                variant="subtle"
+              />
+            </div>
             <div className={styles.presence}>
               {selectedBy ? (
                 <Avatar
@@ -167,7 +186,12 @@ export const WhiteboardNote = memo(
               ) : null}
             </div>
           </div>
-          <div className={styles.content}>
+          <div
+            className={clsx(
+              styles.content,
+              collapsed ? styles.collapsed : null
+            )}
+          >
             <div className={styles.textAreaSize}>{text + " "}</div>
             <textarea
               className={styles.textArea}
