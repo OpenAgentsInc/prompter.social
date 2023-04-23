@@ -82,7 +82,7 @@ export const WhiteboardNote = memo(
           const newX = currentX + xOffset;
           const newY = currentY + noteHeight + yOffset;
 
-          const newNoteId = insertNote("Sending...", newX, newY);
+          const newNoteId = insertNote("Sending...", newX, newY, "assistant");
 
           const submitChat = async () => {
             const messageData = {

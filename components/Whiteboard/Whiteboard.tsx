@@ -81,7 +81,13 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
 
   // Insert a new note onto the canvas
   const insertNote = useMutation(
-    ({ storage, self }, text = "", x?: number, y?: number): string | null => {
+    (
+      { storage, self },
+      text = "",
+      x?: number,
+      y?: number,
+      from?: string
+    ): string | null => {
       if (self.isReadOnly) {
         return null;
       }
@@ -92,7 +98,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
         y: y ?? getRandomInt(300),
         collapsed: false,
         text,
-        from: "user",
+        from: from ?? "user",
         selectedBy: null,
         id: noteId,
       });
