@@ -95,7 +95,7 @@ const useStore = create<WithLiveblocks<State>>()(
               [selectedShape]: {
                 ...shape,
                 x: e.clientX - 50,
-                y: e.clientY - 200,
+                y: e.clientY - 50,
               },
             },
           });

@@ -18,7 +18,7 @@ body {
   background-color: #eeeeee;
   touch-action: none;
   width: 100vw;
-  height: 65vh;
+  height: 100vh;
 }
 
 .rectangle {
@@ -43,6 +43,7 @@ body {
   display: flex;
   background-color: #ffffff;
   user-select: none;
+  z-index: 9999;
 }
 
 .toolbar button {
