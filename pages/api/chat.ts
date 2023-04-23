@@ -1,34 +1,72 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { ChatBody, Message } from '@/types/chat'
+import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const'
+import { OpenAIError, OpenAIStream } from '@/utils/server'
+import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json'
+import { init, Tiktoken } from '@dqbd/tiktoken/lite/init'
+// @ts-expect-error
+import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module'
 
-/**
- * POST Chat
- *
- * Logs a message to console
- *
- * @param req
- * @param res
- */
-async function POST(req: NextApiRequest, res: NextApiResponse) {
-  console.log("Processing chat message...");
+export const config = {
+  runtime: "edge",
+};
 
-  // Business logic will go here
+const handler = async (req: Request): Promise<Response> => {
+  try {
+    const { model, messages, key, prompt, temperature } =
+      (await req.json()) as ChatBody;
 
-  // Respond with 200 OK
-  return res.status(200).json({ message: "Chat message processed" });
-}
+    await init((imports: any) => WebAssembly.instantiate(wasm, imports));
+    const encoding = new Tiktoken(
+      tiktokenModel.bpe_ranks,
+      tiktokenModel.special_tokens,
+      tiktokenModel.pat_str
+    );
 
-export default async function chat(req: NextApiRequest, res: NextApiResponse) {
-  switch (req.method) {
-    case "POST":
-      return await POST(req, res);
+    let promptToSend = prompt;
+    if (!promptToSend) {
+      promptToSend = DEFAULT_SYSTEM_PROMPT;
+    }
 
-    default:
-      return res.status(405).json({
-        error: {
-          code: 405,
-          message: "Method Not Allowed",
-          suggestion: "Only POST is available from this API",
-        },
-      });
+    let temperatureToUse = temperature;
+    if (temperatureToUse == null) {
+      temperatureToUse = DEFAULT_TEMPERATURE;
+    }
+
+    const prompt_tokens = encoding.encode(promptToSend);
+
+    let tokenCount = prompt_tokens.length;
+    let messagesToSend: Message[] = [];
+
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const message = messages[i];
+      const tokens = encoding.encode(message.content);
+
+      if (tokenCount + tokens.length + 1000 > model.tokenLimit) {
+        break;
+      }
+      tokenCount += tokens.length;
+      messagesToSend = [message, ...messagesToSend];
+    }
+
+    encoding.free();
+
+    const stream = await OpenAIStream(
+      model,
+      promptToSend,
+      temperatureToUse,
+      key,
+      messagesToSend
+    );
+
+    return new Response(stream);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof OpenAIError) {
+      return new Response("Error", { status: 500, statusText: error.message });
+    } else {
+      return new Response("Error", { status: 500 });
+    }
   }
-}
+};
+
+export default handler;
