@@ -211,7 +211,11 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
       {!isReadOnly && (
         <div className={styles.toolbar}>
           <Tooltip content="Add note" sideOffset={16}>
-            <Button icon={<PlusIcon />} onClick={insertNote} variant="subtle" />
+            <Button
+              icon={<PlusIcon />}
+              onClick={() => insertNote()}
+              variant="subtle"
+            />
           </Tooltip>
           <Tooltip content="Undo" sideOffset={16}>
             <Button
