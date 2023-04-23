@@ -1,12 +1,12 @@
-import clsx from "clsx";
-import Link from "next/link";
-import { ComponentProps } from "react";
-import { SignInIcon } from "../../icons";
-import { signIn } from "next-auth/react";
-import { Button } from "../../primitives/Button";
-import { Container } from "../../primitives/Container";
-import { Logo } from "../Logo";
-import styles from "./MarketingHeader.module.css";
+import clsx from 'clsx'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
+import { ComponentProps } from 'react'
+import { SignInIcon } from '../../icons'
+import { Button } from '../../primitives/Button'
+import { Container } from '../../primitives/Container'
+import { Logo } from '../Logo'
+import styles from './MarketingHeader.module.css'
 
 export function MarketingHeader({
   className,
@@ -18,9 +18,9 @@ export function MarketingHeader({
         <Link href="/">
           <Logo />
         </Link>
-        <Button icon={<SignInIcon />} onClick={() => signIn()}>
+        {/* <Button icon={<SignInIcon />} onClick={() => signIn()}>
           Sign in
-        </Button>
+        </Button> */}
       </Container>
     </header>
   );

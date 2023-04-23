@@ -33,9 +33,9 @@ export default function Index() {
           <p className={styles.heroLead}>Chat together, learn together.</p>
         </div>
         <div className={styles.heroActions}>
-          <Button icon={<SignInIcon />} onClick={() => signIn()}>
+          {/* <Button icon={<SignInIcon />} onClick={() => signIn()}>
             Sign in
-          </Button>
+          </Button> */}
           {/* <LinkButton
             href="https://liveblocks.io/docs/guides/nextjs-starter-kit"
             target="_blank"
