@@ -1,10 +1,21 @@
 import { NextPage } from 'next'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Head from 'next/head'
+import { useEffect } from 'react'
+import useStore from '@/store'
 import { api } from '@/utils/api'
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const enterRoom = useStore((state) => state.liveblocks.enterRoom);
+  const leaveRoom = useStore((state) => state.liveblocks.leaveRoom);
+
+  useEffect(() => {
+    enterRoom("zustand-whiteboard");
+    console.log("entered room maybe");
+    return () => {
+      leaveRoom("zustand-whiteboard");
+    };
+  }, [enterRoom, leaveRoom]);
 
   return (
     <>
