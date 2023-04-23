@@ -23,12 +23,21 @@ interface Props
   onDelete: () => void;
   onFocus: FocusEventHandler<HTMLTextAreaElement>;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
-  insertNote: (text?: string, x?: number, y?: number) => string | null;
+  insertNote: (
+    text?: string,
+    x?: number,
+    y?: number,
+    stuff?: any
+  ) => string | null;
   handleNoteUpdate: (
     id: string,
     note: { text?: string; from?: "user" | "assistant" | "system" }
   ) => void;
-  getNotesAbove: (note: any) => Array<{
+  notesMap: any;
+  getNotesAbove: (
+    note: any,
+    notesMap: any
+  ) => Array<{
     from: "user" | "assistant" | "system";
     id: string;
   }>;
@@ -94,9 +103,14 @@ export const WhiteboardNote = memo(
           const newNoteId = insertNote("Sending...", newX, newY, "assistant");
 
           const submitChat = async () => {
+            const previousMessages = aboveNotes.map((aboveNote) => ({
+              role: aboveNote.from,
+              content: aboveNote.content,
+            }));
             const messageData = {
               model: OpenAIModels["gpt-4"],
               messages: [
+                ...previousMessages,
                 {
                   role: "user",
                   content: text,
@@ -105,6 +119,8 @@ export const WhiteboardNote = memo(
               key: "your_key",
               temperature: 0.7,
             };
+
+            console.log("messageData", messageData);
 
             const response = await fetch("/api/chat", {
               method: "POST",
