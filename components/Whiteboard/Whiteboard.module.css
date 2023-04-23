@@ -5,11 +5,17 @@
   height: 100%;
 }
 
+.toolbarContainer {
+  position: fixed;
+  width: 100vw;
+  height: 93vh;
+}
+
 .toolbar {
   position: absolute;
   z-index: var(--z-above);
-  bottom: var(--space-10);
-  left: 50%;
+  top: var(--space-10);
+  left: 100px;
   display: flex;
   padding: var(--space-4);
   border: 1px solid var(--color-border);

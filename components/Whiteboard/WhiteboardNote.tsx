@@ -68,7 +68,7 @@ export const WhiteboardNote = memo(
           const text = textAreaRef.current?.value;
 
           // Calculate the new note position (a bit below and to the right of the submitted note)
-          const xOffset = 40;
+          const xOffset = 0;
           const yOffset = 20;
           const noteElement =
             textAreaRef.current?.parentElement?.parentElement?.parentElement;

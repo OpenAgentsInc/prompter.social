@@ -247,30 +247,32 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
       }
 
       {!isReadOnly && (
-        <div className={styles.toolbar}>
-          <Tooltip content="Add note" sideOffset={16}>
-            <Button
-              icon={<PlusIcon />}
-              onClick={() => insertNote()}
-              variant="subtle"
-            />
-          </Tooltip>
-          <Tooltip content="Undo" sideOffset={16}>
-            <Button
-              disabled={!canUndo}
-              icon={<UndoIcon />}
-              onClick={history.undo}
-              variant="subtle"
-            />
-          </Tooltip>
-          <Tooltip content="Redo" sideOffset={16}>
-            <Button
-              disabled={!canRedo}
-              icon={<RedoIcon />}
-              onClick={history.redo}
-              variant="subtle"
-            />
-          </Tooltip>
+        <div className={styles.toolbarContainer}>
+          <div className={styles.toolbar}>
+            <Tooltip content="Add note" sideOffset={16}>
+              <Button
+                icon={<PlusIcon />}
+                onClick={() => insertNote()}
+                variant="subtle"
+              />
+            </Tooltip>
+            <Tooltip content="Undo" sideOffset={16}>
+              <Button
+                disabled={!canUndo}
+                icon={<UndoIcon />}
+                onClick={history.undo}
+                variant="subtle"
+              />
+            </Tooltip>
+            <Tooltip content="Redo" sideOffset={16}>
+              <Button
+                disabled={!canRedo}
+                icon={<RedoIcon />}
+                onClick={history.redo}
+                variant="subtle"
+              />
+            </Tooltip>
+          </div>
         </div>
       )}
     </div>
