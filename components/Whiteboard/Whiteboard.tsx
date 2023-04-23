@@ -62,6 +62,36 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
     shallow
   );
 
+  function getNotesAbove(
+    targetNote: any,
+    notesMap: Map<string, typeof LiveObject>
+  ) {
+    const xThreshold = 20;
+    const notesArray: Array<{
+      from: "user" | "assistant" | "system";
+      content: string;
+    }> = [];
+
+    noteIds.forEach((id) => {
+      const currentNote = notesMap.get(id);
+      console.log("currentNote", currentNote);
+      // const currentNote = useStorage((root) => root.notes.get(id));
+      if (!currentNote) return;
+      // Check if x is less than note.x and y is within the range
+      if (
+        currentNote.x < targetNote.x &&
+        Math.abs(currentNote.y - targetNote.y) <= xThreshold
+      ) {
+        notesArray.push({
+          from: currentNote.from as "user" | "assistant" | "system",
+          content: currentNote.text,
+        });
+      }
+    });
+
+    return notesArray;
+  }
+
   const history = useHistory();
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
@@ -219,6 +249,10 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
     history.resume();
   }
 
+  const notesMap: Map<string, typeof LiveObject> = useStorage(
+    (root) => root.notes
+  );
+
   return (
     <div
       className={clsx(className, styles.canvas)}
@@ -250,6 +284,8 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
             onPointerDown={(e) => handleNotePointerDown(e, id)}
             insertNote={insertNote}
             handleNoteUpdate={handleNoteUpdate}
+            notesMap={notesMap}
+            getNotesAbove={getNotesAbove}
           />
         ))
       }

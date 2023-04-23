@@ -28,6 +28,10 @@ interface Props
     id: string,
     note: { text?: string; from?: "user" | "assistant" | "system" }
   ) => void;
+  getNotesAbove: (note: any) => Array<{
+    from: "user" | "assistant" | "system";
+    id: string;
+  }>;
 }
 
 export const WhiteboardNote = memo(
@@ -43,6 +47,8 @@ export const WhiteboardNote = memo(
     style,
     className,
     handleNoteUpdate,
+    notesMap,
+    getNotesAbove,
     ...props
   }: Props) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -70,6 +76,9 @@ export const WhiteboardNote = memo(
         if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
           event.preventDefault(); // Prevent creating a new line in the textarea
           const text = textAreaRef.current?.value;
+
+          const aboveNotes = getNotesAbove(note, notesMap);
+          console.log("aboveNotes", aboveNotes);
 
           // Calculate the new note position (a bit below and to the right of the submitted note)
           const xOffset = 0;
