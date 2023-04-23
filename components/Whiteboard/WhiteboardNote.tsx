@@ -61,7 +61,7 @@ export const WhiteboardNote = memo(
               messages: [
                 {
                   role: "user",
-                  content: "Does this work?",
+                  content: text,
                 },
               ],
               key: "your_key",
@@ -87,7 +87,6 @@ export const WhiteboardNote = memo(
               const reader = data.getReader();
               const decoder = new TextDecoder();
               let done = false;
-              let isFirst = true;
               let text = "";
 
               while (!done) {
