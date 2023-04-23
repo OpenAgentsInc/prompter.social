@@ -13,9 +13,12 @@ export type Shape = {
 type State = {
   shapes: Record<string, Shape>;
   selectedShape: string | null;
+  isDragging: boolean;
   insertRectangle: () => void;
   onShapePointerDown: (shapeId: string | null) => void;
   deleteShape: () => void;
+  onCanvasPointerUp: () => void;
+  onCanvasPointerMove: (e: React.PointerEvent) => void;
 };
 
 const client = createClient({
@@ -38,6 +41,7 @@ const useStore = create<WithLiveblocks<State>>()(
     (set, get) => ({
       shapes: {},
       selectedShape: null,
+      isDragging: false,
       insertRectangle: () => {
         const { shapes } = get();
 
@@ -54,7 +58,7 @@ const useStore = create<WithLiveblocks<State>>()(
         });
       },
       onShapePointerDown: (shapeId) => {
-        set({ selectedShape: shapeId });
+        set({ selectedShape: shapeId, isDragging: true });
       },
       deleteShape: () => {
         const { shapes, selectedShape } = get();
@@ -69,6 +73,33 @@ const useStore = create<WithLiveblocks<State>>()(
           shapes: newShapes,
           selectedShape: null,
         });
+      },
+      onCanvasPointerUp: () => {
+        set({ isDragging: false });
+      },
+      onCanvasPointerMove: (e) => {
+        e.preventDefault();
+
+        const { isDragging, shapes, selectedShape } = get();
+        if (!selectedShape) {
+          /* Nothing todo */
+          return;
+        }
+
+        const shape = shapes[selectedShape];
+
+        if (shape && isDragging) {
+          set({
+            shapes: {
+              ...shapes,
+              [selectedShape]: {
+                ...shape,
+                x: e.clientX - 50,
+                y: e.clientY - 200,
+              },
+            },
+          });
+        }
       },
     }),
     {

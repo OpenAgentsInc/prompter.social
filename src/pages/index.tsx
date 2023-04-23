@@ -12,6 +12,8 @@ const Home: NextPage = () => {
   const enterRoom = useStore((state) => state.liveblocks.enterRoom);
   const leaveRoom = useStore((state) => state.liveblocks.leaveRoom);
   const isLoading = useStore((state) => state.liveblocks.isStorageLoading);
+  const onCanvasPointerMove = useStore((state) => state.onCanvasPointerMove);
+  const onCanvasPointerUp = useStore((state) => state.onCanvasPointerUp);
 
   useEffect(() => {
     enterRoom("zustand-whiteboard");
@@ -37,7 +39,11 @@ const Home: NextPage = () => {
                   Delete
                 </button>
               </div>
-              <div className="canvas">
+              <div
+                className="canvas"
+                onPointerMove={onCanvasPointerMove}
+                onPointerUp={onCanvasPointerUp}
+              >
                 {Object.entries(shapes).map(([shapeId, shape]) => {
                   let selectionColor = "transparent";
 
