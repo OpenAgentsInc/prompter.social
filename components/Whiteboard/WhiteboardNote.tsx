@@ -51,10 +51,26 @@ export const WhiteboardNote = memo(
 
         if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
           event.preventDefault(); // Prevent creating a new line in the textarea
+          const text = textAreaRef.current?.value;
+          console.log("Submitting...", text);
 
-          // Call your API function here with text as parameter, e.g., sendToOpenAIChatAPI(text);
-          // You can use the 'chatInput' state variable as the text to be sent
-          console.log("Submitting...");
+          const submitChat = async () => {
+            const response = await fetch("/api/chat", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ text: text }),
+            });
+
+            if (response.ok) {
+              console.log("Chat submitted successfully");
+            } else {
+              console.error("Error submitting chat:", response.statusText);
+            }
+          };
+
+          submitChat();
         }
       },
       []
