@@ -3,6 +3,7 @@ import {
     ChangeEventHandler, ComponentProps, FocusEventHandler, KeyboardEvent, memo,
     PointerEventHandler, useCallback, useRef
 } from 'react'
+import { OpenAIModels } from '@/types/openai'
 import { CrossIcon } from '../../icons'
 import { useStorage } from '../../liveblocks.config'
 import { Avatar } from '../../primitives/Avatar'
@@ -55,16 +56,32 @@ export const WhiteboardNote = memo(
           console.log("Submitting...", text);
 
           const submitChat = async () => {
+            const messageData = {
+              model: OpenAIModels["gpt-4"],
+              messages: [
+                {
+                  role: "user",
+                  content: "Does this work?",
+                },
+              ],
+              key: "your_key",
+              prompt: "hello test",
+              temperature: 0.7,
+            };
+
             const response = await fetch("/api/chat", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ text: text }),
+              body: JSON.stringify(messageData),
             });
 
             if (response.ok) {
               console.log("Chat submitted successfully");
+              // const data = await response.body()
+              // const data = await response.json();
+              // console.log(data);
             } else {
               console.error("Error submitting chat:", response.statusText);
             }
