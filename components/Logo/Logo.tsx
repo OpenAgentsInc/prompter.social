@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import { ComponentProps } from "react";
-import styles from "./Logo.module.css";
+import clsx from 'clsx'
+import { ComponentProps } from 'react'
+import styles from './Logo.module.css'
 
 export function Logo({ className, ...props }: ComponentProps<"div">) {
   return (
@@ -18,7 +18,7 @@ export function Logo({ className, ...props }: ComponentProps<"div">) {
           fillRule="evenodd"
         />
       </svg>
-      <span className={styles.wordmark}>Starter Kit</span>
+      <span className={styles.wordmark}>PrompterSocial</span>
     </div>
   );
 }
