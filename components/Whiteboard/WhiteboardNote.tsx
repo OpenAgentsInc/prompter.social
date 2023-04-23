@@ -89,9 +89,14 @@ export const WhiteboardNote = memo(
               let done = false;
               let isFirst = true;
               let text = "";
-              // const data = await response.body()
-              // const data = await response.json();
-              // console.log(data);
+
+              while (!done) {
+                const { value, done: doneReading } = await reader.read();
+                done = doneReading;
+                const chunkValue = decoder.decode(value);
+                text += chunkValue;
+                console.log(text);
+              }
             } else {
               console.error("Error submitting chat:", response.statusText);
             }
