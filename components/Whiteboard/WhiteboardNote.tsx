@@ -3,6 +3,7 @@ import {
     ChangeEventHandler, ComponentProps, FocusEventHandler, KeyboardEvent, memo,
     PointerEventHandler, useCallback, useRef, useState
 } from 'react'
+import { Select } from '@/primitives/Select'
 import { OpenAIModels } from '@/types/openai'
 import { CrossIcon, PlusIcon, SelectIcon } from '../../icons'
 import { useStorage } from '../../liveblocks.config'
@@ -155,6 +156,19 @@ export const WhiteboardNote = memo(
       >
         <div className={styles.note}>
           <div className={styles.header}>
+            <Select
+              initialValue="user"
+              items={[
+                { value: "user", title: "User" },
+                { value: "system", title: "System" },
+                { value: "assistant", title: "Assistant" },
+              ]}
+              onChange={(value) => {
+                console.log(value);
+                // Handle the value change, e.g., update the state or call a function
+              }}
+            />
+
             <div className={styles.headerButtons}>
               <Button
                 className={styles.deleteButton}
