@@ -169,7 +169,7 @@ export const WhiteboardNote = memo(
               }}
             />
 
-            <div className={styles.headerButtons}>
+            <div className={styles.iconButtons}>
               <Button
                 className={styles.deleteButton}
                 onClick={(e) => {
