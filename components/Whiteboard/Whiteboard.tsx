@@ -40,13 +40,22 @@ export function Whiteboard() {
 
   return (
     <ClientSideSuspense fallback={loading}>
-      {() => <Canvas currentUser={session?.user.info ?? null} />}
+      {() => (
+        <div className={styles.canvasContainer}>
+          <Canvas currentUser={session?.user.info ?? null} />
+        </div>
+      )}
     </ClientSideSuspense>
   );
 }
 
 // The main Liveblocks code, handling all events and note modifications
 function Canvas({ currentUser, className, style, ...props }: Props) {
+  const [canvasDimensions, setCanvasDimensions] = useState({
+    width: 10000,
+    height: 10000,
+  });
+
   // An array of every note id
   const noteIds: string[] = useStorage(
     (root) => Array.from(root.notes.keys()),
@@ -144,11 +153,31 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
     history.resume();
   }
 
+  function expandCanvas() {
+    const { x, y } = dragInfo.current.offset;
+    const coords = {
+      x: e.clientX - rectRef.current.x - x,
+      y: e.clientY - rectRef.current.y - y,
+    };
+    const padding = 200;
+    const newWidth =
+      coords.x + padding > canvasDimensions.width
+        ? canvasDimensions.width + 10000
+        : canvasDimensions.width;
+    const newHeight =
+      coords.y + padding > canvasDimensions.height
+        ? canvasDimensions.height + 10000
+        : canvasDimensions.height;
+
+    setCanvasDimensions({ width: newWidth, height: newHeight });
+  }
+
   // If dragging on canvas pointer move, move element and adjust for offset
   function handleCanvasPointerMove(e: PointerEvent<HTMLDivElement>) {
     e.preventDefault();
 
     if (isDragging && dragInfo.current) {
+      expandCanvas();
       const { x, y } = dragInfo.current.offset;
       const coords = {
         x: e.clientX - rectRef.current.x - x,
@@ -184,7 +213,12 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
       onPointerMove={handleCanvasPointerMove}
       onPointerUp={handleCanvasPointerUp}
       ref={canvasRef}
-      style={{ pointerEvents: isReadOnly ? "none" : undefined, ...style }}
+      style={{
+        width: canvasDimensions.width,
+        height: canvasDimensions.height,
+        pointerEvents: isReadOnly ? "none" : undefined,
+        ...style,
+      }}
       {...props}
     >
       <Cursors element={canvasRef} />
