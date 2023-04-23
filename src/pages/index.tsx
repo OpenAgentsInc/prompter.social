@@ -19,7 +19,7 @@ const Home: NextPage = () => {
             Prompter<span className="text-[hsl(280,100%,70%)]">Social</span>
           </h1>
           <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">Let's test Liveblocks</p>
+            <p className="text-2xl text-white">Let us test Liveblocks</p>
           </div>
         </div>
       </main>
