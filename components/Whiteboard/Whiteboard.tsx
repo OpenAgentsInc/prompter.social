@@ -92,6 +92,7 @@ function Canvas({ currentUser, className, style, ...props }: Props) {
         y: y ?? getRandomInt(300),
         collapsed: false,
         text,
+        from: "user",
         selectedBy: null,
         id: noteId,
       });
