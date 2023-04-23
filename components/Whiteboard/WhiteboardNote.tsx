@@ -169,7 +169,6 @@ export const WhiteboardNote = memo(
               onChange={(value: "user" | "system" | "assistant") => {
                 // Handle the value change, e.g., update the state or call a function
                 handleNoteUpdate(id, { from: value });
-                console.log("Updated note I think:", value);
               }}
               value={note.from}
             />
