@@ -8,6 +8,7 @@ const Home: NextPage = () => {
   const insertRectangle = useStore((state) => state.insertRectangle);
   const others = useStore((state) => state.liveblocks.others);
   const selectedShape = useStore((state) => state.selectedShape);
+  const deleteShape = useStore((state) => state.deleteShape);
   const enterRoom = useStore((state) => state.liveblocks.enterRoom);
   const leaveRoom = useStore((state) => state.liveblocks.leaveRoom);
   const isLoading = useStore((state) => state.liveblocks.isStorageLoading);
@@ -32,6 +33,9 @@ const Home: NextPage = () => {
             <>
               <div className="toolbar">
                 <button onClick={insertRectangle}>Rectangle</button>
+                <button onClick={deleteShape} disabled={selectedShape === null}>
+                  Delete
+                </button>
               </div>
               <div className="canvas">
                 {Object.entries(shapes).map(([shapeId, shape]) => {

@@ -15,6 +15,7 @@ type State = {
   selectedShape: string | null;
   insertRectangle: () => void;
   onShapePointerDown: (shapeId: string | null) => void;
+  deleteShape: () => void;
 };
 
 const client = createClient({
@@ -54,6 +55,20 @@ const useStore = create<WithLiveblocks<State>>()(
       },
       onShapePointerDown: (shapeId) => {
         set({ selectedShape: shapeId });
+      },
+      deleteShape: () => {
+        const { shapes, selectedShape } = get();
+        if (!selectedShape) {
+          console.log("No shape selected");
+          /* Nothing todo */
+          return;
+        }
+
+        const { [selectedShape]: shapeToDelete, ...newShapes } = shapes;
+        set({
+          shapes: newShapes,
+          selectedShape: null,
+        });
       },
     }),
     {
