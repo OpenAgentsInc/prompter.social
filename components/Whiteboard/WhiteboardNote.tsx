@@ -65,7 +65,7 @@ export const WhiteboardNote = memo(
                 },
               ],
               key: "your_key",
-              prompt: "hello test",
+              // prompt: "hello test",
               temperature: 0.7,
             };
 
