@@ -9,5 +9,6 @@ others) using built-in collaboration tools.
 
 ## Tech stack
 
-- [T3 stack](https://create.t3.gg/) (React/TypeScript/NextJS/Prisma)
+- React/TypeScript/NextJS via
+  [Liveblocks NextJS starter kit](https://liveblocks.io/docs/guides/nextjs-starter-kit)
 - [Liveblocks](https://liveblocks.io/)
